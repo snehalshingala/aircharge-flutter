@@ -16,33 +16,7 @@ class SettingScreenView extends GetView<SettingScreenController> {
         Get.put(SettingScreenController());
     return Scaffold(
         backgroundColor: AppColors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'air',
-                  style: Styles.metaRegular(
-                      color: AppColors.lightBlack,
-                      size: 24.sp,
-                      font: FontFamily.meta),
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  text: 'charge',
-                  style: Styles.metaBold(
-                      color: AppColors.lightBlack,
-                      size: 24.sp,
-                      font: FontFamily.meta),
-                ),
-              ),
-            ],
-          ),
-        ),
+
         body: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [

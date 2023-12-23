@@ -1,4 +1,5 @@
 import 'package:aircharge/app/data/models/list_map.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FindChargesScreenController extends GetxController {
@@ -11,10 +12,11 @@ class FindChargesScreenController extends GetxController {
     charges;
   }
 
-  // final _mapView = false.obs;
-  // bool get mapView => _mapView.value;
-  // set mapView(bool value) => _mapView.value = value;
+   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void openEndDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
+  }
   final _isMapViewVisible = false.obs;
   bool get isMapViewVisible => _isMapViewVisible.value;
   set isMapViewVisible(bool value) => _isMapViewVisible.value = value;

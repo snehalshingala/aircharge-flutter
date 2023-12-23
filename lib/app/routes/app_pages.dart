@@ -2,14 +2,12 @@ import 'package:get/get.dart';
 
 import '../modules/dashborad_scareen/bindings/dashborad_scareen_binding.dart';
 import '../modules/dashborad_scareen/views/dashborad_scareen_view.dart';
-import '../modules/find_chargers_details_screen/bindings/find_chargers_details_screen_binding.dart';
-import '../modules/find_chargers_details_screen/views/find_chargers_details_screen_view.dart';
+
 import '../modules/find_charges_screen/bindings/find_charges_screen_binding.dart';
 import '../modules/find_charges_screen/views/find_charges_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/offers_details_screen/bindings/offers_details_screen_binding.dart';
-import '../modules/offers_details_screen/views/offers_details_screen_view.dart';
+
 import '../modules/report_issue_screen/bindings/report_issue_screen_binding.dart';
 import '../modules/report_issue_screen/views/report_issue_screen_view.dart';
 import '../modules/setting_screen/bindings/setting_screen_binding.dart';
@@ -50,16 +48,7 @@ class AppPages {
       page: () => const SettingScreenView(),
       binding: SettingScreenBinding(),
     ),
-    GetPage(
-      name: _Paths.OFFERS_DETAILS_SCREEN,
-      page: () => const OffersDetailsScreenView(),
-      binding: OffersDetailsScreenBinding(),
-    ),
-    GetPage(
-      name: _Paths.FIND_CHARGERS_DETAILS_SCREEN,
-      page: () => const FindChargersDetailsScreenView(),
-      binding: FindChargersDetailsScreenBinding(),
-    ),
+  
     GetPage(
       name: _Paths.REPORT_ISSUE_SCREEN,
       page: () => const ReportIssueScreenView(),
