@@ -4,10 +4,10 @@ import 'package:aircharge/app/core/theme/styles.dart';
 import 'package:aircharge/app/data/models/list_map.dart';
 import 'package:aircharge/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../controllers/find_charges_screen_controller.dart';
 
@@ -16,6 +16,7 @@ class FindChargesScreenView extends GetView<FindChargesScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(FindChargesScreenController());
+    GoogleMapController? mapController;
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -153,61 +154,89 @@ class FindChargesScreenView extends GetView<FindChargesScreenController> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              color: AppColors.grey.withOpacity(0.1),
-              child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  itemCount: charges.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      clipBehavior: Clip.antiAlias,
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.FIND_CHARGERS_DETAILS_SCREEN,
-                              arguments: charges);
+          Container(
+            height: 500,
+            width: 400,
+            child: Obx(() => Visibility(
+                  visible: controller.isMapViewVisible,
+                  replacement: listViewWidget(),
+                  child: Stack(
+                    children: [
+                      GoogleMap(
+                        onMapCreated: (controller) {
+                          mapController = controller;
                         },
-                        child: ListTile(
-                          tileColor: AppColors.white,
-                          leading: CircleAvatar(
-                            maxRadius: 30,
-                            backgroundImage:
-                                AssetImage("${charges[index]['image']}"),
-                          ),
-                          title: Text(
-                            charges[index]['title'] ?? "",
-                            style: Styles.metaBold(
-                              color: AppColors.black,
-                              size: 18.sp,
-                            ),
-                          ),
-                          subtitle: Text(
-                            // "${   charges[index]['subtitle'] \n  charges[index]['thirdtitle'] ,}",
-                            "Southampton row\n2.5 miles",
-                            style: Styles.metaRegular(
-                              color: AppColors.icongrey,
-                              size: 16.sp,
-                            ),
-                          ),
-                          isThreeLine: true,
-                          trailing: const Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: 22,
-                              color: AppColors.darkGrey,
-                            ),
-                          ),
+                        initialCameraPosition: const CameraPosition(
+                          target: LatLng(
+                              37.7749, -122.4194), // Set initial location
+                          zoom: 8.0,
                         ),
                       ),
-                    );
-                  }),
-            ),
-          ),
+                      Column(
+                        children: [
+                          Expanded(flex: 10, child: Container()),
+                          Expanded(
+                            flex: 14,
+                            child: listViewWidget(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          )
         ],
       ),
     );
   }
+}
+
+Widget listViewWidget() {
+  return ListView.builder(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      itemCount: charges.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: () {
+              Get.toNamed(Routes.FIND_CHARGERS_DETAILS_SCREEN,
+                  arguments: charges);
+            },
+            child: ListTile(
+              tileColor: AppColors.white,
+              leading: CircleAvatar(
+                maxRadius: 30,
+                backgroundImage: AssetImage("${charges[index]['image']}"),
+              ),
+              title: Text(
+                charges[index]['title'] ?? "",
+                style: Styles.metaBold(
+                  color: AppColors.black,
+                  size: 18.sp,
+                ),
+              ),
+              subtitle: Text(
+                // "${   charges[index]['subtitle'] \n  charges[index]['thirdtitle'] ,}",
+                "Southampton row\n2.5 miles",
+                style: Styles.metaRegular(
+                  color: AppColors.icongrey,
+                  size: 16.sp,
+                ),
+              ),
+              isThreeLine: true,
+              trailing: const Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 22,
+                  color: AppColors.darkGrey,
+                ),
+              ),
+            ),
+          ),
+        );
+      });
 }
