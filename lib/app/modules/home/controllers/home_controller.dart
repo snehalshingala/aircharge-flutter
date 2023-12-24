@@ -47,29 +47,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     );
   }
 
-  ///showOffer Page
-  // final _showOfferDetailsPage = false.obs;
-  // bool get showOfferDetailsPage => this._showOfferDetailsPage.value;
-  // set showOfferDetailsPage(bool value) =>
-  //     this._showOfferDetailsPage.value = value;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  RxBool showOfferDetailsPage = false.obs;
-
-  // late final AnimationController animationController =
-  //     AnimationController(vsync: this);
-
-  // RxBool isOpen = false.obs;
-
-  late final AnimationController animationController =
-      Get.put(AnimationController(vsync: this));
-
-  final _isOpens = false.obs;
-  bool get isOpens => this._isOpens.value;
-  set isOpens(bool value) => this._isOpens.value = value;
-
-  void toggleVisibility() {
-
-    showOfferDetailsPage.value = !showOfferDetailsPage.value;
-    update(["visible"]);
+  void openEndDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
   }
 }

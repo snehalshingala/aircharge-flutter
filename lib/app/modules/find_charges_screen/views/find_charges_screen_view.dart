@@ -2,6 +2,7 @@ import 'package:aircharge/app/core/constants/enums.dart';
 import 'package:aircharge/app/core/theme/colors.dart';
 import 'package:aircharge/app/core/theme/styles.dart';
 import 'package:aircharge/app/data/models/list_map.dart';
+import 'package:aircharge/app/modules/find_charges_screen/views/find_charges_details_screen_view.dart';
 import 'package:aircharge/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,32 +19,11 @@ class FindChargesScreenView extends GetView<FindChargesScreenController> {
     Get.put(FindChargesScreenController());
 
     return Scaffold(
+      drawerEdgeDragWidth: 0,
+      key: controller.scaffoldKey,
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            RichText(
-              text: TextSpan(
-                text: 'air',
-                style: Styles.metaRegular(
-                    color: AppColors.lightBlack,
-                    size: 24.sp,
-                    font: FontFamily.meta),
-              ),
-            ),
-            RichText(
-              text: TextSpan(
-                text: 'charge',
-                style: Styles.metaBold(
-                    color: AppColors.lightBlack,
-                    size: 24.sp,
-                    font: FontFamily.meta),
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawerScrimColor: Colors.transparent,
+      endDrawer: FindChargesDetailsScreen(),
       body: Column(
         children: [
           Padding(
@@ -166,8 +146,8 @@ class FindChargesScreenView extends GetView<FindChargesScreenController> {
                       clipBehavior: Clip.antiAlias,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed(Routes.FIND_CHARGERS_DETAILS_SCREEN,
-                              arguments: charges);
+                          Scaffold.of(context).openEndDrawer();
+                          
                         },
                         child: ListTile(
                           tileColor: AppColors.white,
